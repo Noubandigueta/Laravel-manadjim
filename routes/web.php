@@ -46,5 +46,8 @@ Route::controller(LoginController::class)->group(function(){
 
     Route::match(['get','post'], '/activation_account_change_email/{token}','ActivationAccountChangeEmail')
                 ->name('app_activation_account_change_email');
+
+    Route::match(['get', 'post'], '/forgot_password', 'forgotPassword')->name('app_forgot_password');
+
 });
 

@@ -3,8 +3,8 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="container">
-        <div class="row" style="background-image: url('/images/manadjim20.jpg');">
+    <div class="container" >
+        <div class="row" >
             <div class="col-md-4 mx-auto">
                 <h1 class="text-center text-muted mb-3 mt-5">Please sign in</h1>
                 <p class="text-center text-muted mb-5">Your articles are waiting for you!</p>
@@ -26,10 +26,10 @@
                       </div>
                     @enderror
 
-                    <label for="email">Email</label>
+                    <label for="email" class="form-label">Email</label>
                     <input type="email" name="email" id="email" class="form-control mb-3 @error('email') is invalid @enderror" value="{{ old('email') }} " required autocomplete="email" autofocus>
 
-                    <label for="password">Password</label>
+                    <label for="password" class="form-label">Password</label>
                     <input type="password" name="password" id="password" class="form-control mb-3 @error('password') is invalid @enderror" required autocomplete="current-password">
                     <div class="row mb-3">
                         <div class="d-grid gap-2">
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="col md-6 text-end">
-                            <a href="#">Forgot password ?</a>
+                            <a href="{{ route('app_forgot_password') }}">Forgot password ?</a>
                         </div>
                         <p class="text-center text-muted mt-5">Not registered yet ? <a href="{{ route('register') }}">Create an account</a></p>
                     </div>

@@ -7,7 +7,7 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link @if(Request::route()->getname() == 'app_home') active @endif" aria-current="page" href="{{ route('app_home') }}">Home</a>
@@ -15,9 +15,16 @@
         <li class="nav-item">
           <a class="nav-link @if(Request::route()->getname() == 'app_about') active @endif" aria-current="page" href="{{ route('app_about') }}">About</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link @if(Request::route()->getname() == 'app_about') active @endif" aria-current="page" href="#">Our Services</a>
-        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Our services</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" style="color: rgb(9, 23, 88)">Bâtiments et Eau</a></li>
+              <li><a class="dropdown-item" href="#" style="color: rgb(39, 9, 88)">Graphisme</a></li>
+              <li><a class="dropdown-item" href="#" style="color: rgb(66, 9, 88)">Agro Business</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Separated link</a></li>
+            </ul>
+          </li>
         <li class="nav-item">
           <a class="nav-link @if(Request::route()->getname() == 'app_about') active @endif" aria-current="page" href="#">My blog</a>
         </li>

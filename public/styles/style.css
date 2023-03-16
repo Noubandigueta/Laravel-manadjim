@@ -1,7 +1,11 @@
 header{
-    background-image: url('/images/back.jpg');
+    /* background-image: url('/images/back.jpg'); */
+    background-color: rgb(147, 176, 180);
     height: 100vh;
     background-size: cover;
     background-position: center;
 }
 
+navbar a{
+    color: rgb(69, 8, 75);
+}

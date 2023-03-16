@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-5 mx-auto" style="background-image: url('/images/manadjim16.jpg');">
+            <div class="col-md-5 mx-auto">
                 <h1 class="text-center text-muted mb-3 mt-3">Register</h1>
                 <p class="text-center text-muted mb-5">Create an account if you don't have one.</p>
 
