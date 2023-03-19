@@ -18,6 +18,11 @@ class HomeController extends Controller
         return view(('home.about'));
     }
 
+    public function contact()
+    {
+        return view(('contact.contact'));
+    }
+
     //La page du dashboard.blade.php
     public function dashboard()
     {

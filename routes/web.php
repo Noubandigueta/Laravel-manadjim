@@ -21,6 +21,8 @@ Route::controller(HomeController::class)->group(function(){
 
     Route::get('/about','about')->name('app_about');
 
+    Route::get('/contact','contact')->name('app_contact');
+
     Route::match(['get','post'], '/dashboard', 'dashboard')->middleware('auth')->name('app_dashboard');
 
     Route::get('/logout', [LoginController::class, 'logout'])
@@ -48,6 +50,8 @@ Route::controller(LoginController::class)->group(function(){
                 ->name('app_activation_account_change_email');
 
     Route::match(['get', 'post'], '/forgot_password', 'forgotPassword')->name('app_forgot_password');
+
+    Route::match(['get', 'post'], '/change_password/{token}', 'changePassword')->name('app_change_password');
 
 });
 
