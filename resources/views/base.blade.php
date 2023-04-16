@@ -23,8 +23,20 @@
             {{--Tous nos contenus seront affichés ici--}}
             @yield('content')
 
+            <div style="position: fixed;
+            width: 25px;
+            height: 25px;
+            bottom: 50px;
+            right: 30px;">
+            <a href="#" class="btn btn-default"><img src="/images/fleche1.jpg" alt="Retour en haut" height="30" width="80%" style="width: 25px;"></a>
+            </div>
+            @include('footer/footer')
+
             {{--Mon script javaScript--}}
             @include('script')
         </header>
+        {{--  <div id="content" class="site-content" style="height: auto !important;">
+            @yield('mainContent')
+        </div>  --}}
     </body>
 </html>

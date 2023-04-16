@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PostController;
 use BaconQrCode\Renderer\Color\Rgb;
 use Illuminate\Support\Facades\Route;
 
@@ -23,13 +24,25 @@ Route::controller(HomeController::class)->group(function(){
 
     Route::get('/contact','contact')->name('app_contact');
 
+    Route::post('/contact/store-message', 'storeMessage')->name('app_store_message');
+
+    Route::get('/services/bateau','bateau')->name('app_bateau');
+
+    Route::get('/services/graphisme','graphisme')->name('app_graphisme');
+
+    Route::get('/services','agrobusiness')->name('app_agrobusiness');
+
+    Route::get('/blogs','blogs')->name('app_blogs');
+
     Route::match(['get','post'], '/dashboard', 'dashboard')->middleware('auth')->name('app_dashboard');
 
-    Route::get('/logout', [LoginController::class, 'logout'])
-        ->name('app_logout');
 });
 
 Route::controller(LoginController::class)->group(function(){
+
+    Route::get('/logout','logout')
+    ->name('app_logout');
+
     Route::post('/exist_email','existEmail')
     ->name('app_exist_email');
 
@@ -54,4 +67,7 @@ Route::controller(LoginController::class)->group(function(){
     Route::match(['get', 'post'], '/change_password/{token}', 'changePassword')->name('app_change_password');
 
 });
+
+// La route-ressource => Les routes "post.*"
+Route::resource("posts", PostController::class);
 

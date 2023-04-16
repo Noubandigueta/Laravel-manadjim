@@ -9,7 +9,7 @@
             <h1 class="text-center text-muted mb-3 mt-5">Change password</h1>
             <p class="text-center text-muted mb-5">Please enter your new password</p>
 
-            <form action="{{ route('app_change_password', ['token', $activation_token]) }}" method="post">
+            <form action="{{ route('app_change_password', ['token'=> $activation_token]) }}" method="post">
                 @csrf
                  {{-- inclusion des messages d'alerte --}}
                  @include('alerts\alert-message')
