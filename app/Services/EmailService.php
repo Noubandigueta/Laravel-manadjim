@@ -59,12 +59,41 @@ class EmailService
         $mail->send();
     }
 
+    public function emailContact($subject, $emailUser, $emailAdmin, $nameUser, $isHtml, $message, $userPhone){
+        $mail = new phpMailer;
+        $mail-> isSMTP();
+        $mail->SMTPDebug = 0;
+        $mail->Host = $this->host;
+        $mail->Port = $this->port;
+        $mail->Username = $this->username;
+        $mail->Password = $this->password;
+        $mail->SMTPAuth = true;
+        $mail->Subject = $subject;
+        $mail->setFrom($emailUser, $nameUser) ;
+        $mail->addReplyTo($emailUser, $nameUser);
+        $mail->addAddress($emailAdmin, $this->app_name);
+        $mail->isHTML($isHtml);
+        $mail->Body = $this->viewSendEmailContact($subject, $message, $nameUser, $userPhone);
+        $mail->send();
+    }
+
     public function viewSendEmail($name, $activation_code, $activation_token){
         return view('mail.confirmation_email')
         ->with([
             'name' => $name,
             'activation_code' => $activation_code,
             'activation_token' => $activation_token
+        ]);
+
+    }
+
+    public function viewSendEmailContact($subject, $contenu, $userPhone, $nameUser){
+        return view('mail\contact_email')
+        ->with([
+            'subject' => $subject,
+            'content' => $contenu,
+            'phone' => $userPhone,
+            'username' => $nameUser,
         ]);
 
     }

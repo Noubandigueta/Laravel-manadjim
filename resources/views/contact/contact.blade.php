@@ -9,9 +9,8 @@
 
             <div class="row mt-5 justify-content-center aos-init aos-animate" data-aos="fade-up">
                 <div class="col-lg-10">
-                    <form action="{{ route('app_store_message') }}" method="POST" role="form" enctype="multipart/form-data">
+                    <form action="{{ route('app_send_message') }}" method="POST" role="form" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="_token" value="aMB7fHk6TwD1Tzbc0DnPa1PJlOEvOmUUUuYNigna">
                         <div class="row">
                             <div class="col-md-6 form-group">
                                 <input type="text" name="name" class="form-control " id="name" placeholder="Votre nom" value="" required="">

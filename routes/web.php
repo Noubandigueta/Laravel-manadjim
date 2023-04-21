@@ -24,7 +24,7 @@ Route::controller(HomeController::class)->group(function(){
 
     Route::get('/contact','contact')->name('app_contact');
 
-    Route::post('/contact/store-message', 'storeMessage')->name('app_store_message');
+    Route::post('/contact/send-message', 'sendMessage')->name('app_send_message');
 
     Route::get('/services/bateau','bateau')->name('app_bateau');
 
@@ -34,7 +34,8 @@ Route::controller(HomeController::class)->group(function(){
 
     Route::get('/blogs','blogs')->name('app_blogs');
 
-    Route::match(['get','post'], '/dashboard', 'dashboard')->middleware('auth')->name('app_dashboard');
+    Route::match(['get','post'], '/dashboard', 'dashboard')
+            ->middleware('auth')->name('app_dashboard');
 
 });
 
@@ -65,6 +66,8 @@ Route::controller(LoginController::class)->group(function(){
     Route::match(['get', 'post'], '/forgot_password', 'forgotPassword')->name('app_forgot_password');
 
     Route::match(['get', 'post'], '/change_password/{token}', 'changePassword')->name('app_change_password');
+
+    Route::match(['get', 'post'], '/change_password_admin', 'changePasswordAdmin')->name('app_change_password_admin');
 
 });
 

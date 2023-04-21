@@ -54,7 +54,8 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-link btn-sm">logout</button>
                     </form>
-                    <a href="{{ route('app_dashboard') }}">Dashboard</a>
+                    <p><a href="{{ route('app_dashboard') }}">Dashboard</a></p>
+                    <p><a href="{{ route('app_change_password_admin') }}">Changer le mot de passe</a></p>
                 </ul>
             @endauth
         </div>

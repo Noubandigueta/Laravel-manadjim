@@ -263,4 +263,51 @@ class LoginController extends Controller
         ]);
     }
 
+    public function changePasswordAdmin(){
+        if ($this->request->isMethod('post')){
+            $new_password = $this->request->input('new-password');
+            $new_password_confirm = $this->request->input('new-password-confirm');
+            $passwordLength = strlen($new_password);
+            $userId = Auth::user()->id;
+            $message  = null;
+
+            if($passwordLength >= 8){
+                $message = 'Your passwords must be identical';
+
+                if($new_password == $new_password_confirm){
+                    $user = DB::table('users')->where('id', $userId)->first();
+
+                    if($user){
+                        //dd($user);
+                        DB::table('users')
+                            ->where('id', $userId)
+                            ->update([
+                                'password' => Hash::make($new_password),
+                                'updated_at' => new \DateTimeImmutable,
+                                'activation_token' => ''
+
+                            ]);
+
+                            return redirect()->route('login')->with('success', 'New password saved successfuly');
+                    }else{
+                        return back()->with('danger', 'This token does not match any user');
+                    }
+                }else{
+                    return back()->withErrors(['password-error-confirm' => $message, 'password-success' => 'success'])
+                                    ->with('danger', $message)
+                                    ->with('old-new-password-confirm', $new_password_confirm)
+                                    ->with('old-new-password', $new_password);
+                }
+            }else{
+                $message = "Your password must be at least 8 characters!";
+                return back()->withErrors(['password-error' => $message])
+                            ->with('danger', $message)
+                            ->with('old-new-password', $new_password);
+            }
+        }
+
+
+        return view('auth.change_password_admin');
+    }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Message;
 use App\Models\Post;
+use App\Services\EmailService;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
@@ -28,33 +29,21 @@ class HomeController extends Controller
         return view(('contact.contact'));
     }
 
-    public function storeMessage(Request $request){
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'email' => 'required|max:255',
-            'phone' => 'required|max:255',
-            'subject' => 'required',
-            'text' => 'required',
-            ]);
+    public function sendMessage(Request $request){
+        if($request->isMethod('post')){
+            $username = $request->input('name');
+            $userEmail = $request->input('email');
+            $userPhone = $request->input('phone');
+            $subject = $request->input('subject');
+            $contenu = $request->input('text');
+            $adminEmail = 'noubabongo@gmail.com';
 
-            $msg = new Message();
+            $emailContact = new EmailService;
+            $emailContact->emailContact($subject, $userEmail, $adminEmail, $username, true, $contenu, $userPhone);
 
-            $msg->nom_utilisateur = $request->name;
-            $msg->email_utilisateur = $request->email;
-            $msg->tel_utilisateur = $request->phone;
-            $msg->sujet = $request->subject;
-            $msg->contenu = $request->text;
+            return redirect()->route('app_contact')->with('success', 'Votre message est envoyé avec succès!');
+        }
 
-            $msg->save();
-
-            return redirect()->route('app_contact')->with('status', 'Form Data Has Been validated and insert');
-            // return Message::create([
-            //     'nom_utilisateur' => $request->name,
-            //     'email_utilisateur' => $request->email,
-            //     'tel_utilisateur' => $request->phone,
-            //     'sujet' => $request->subject,
-            //     'contenu' => $request->text,
-            // ]);
     }
 
     public function bateau(){
@@ -89,4 +78,28 @@ class HomeController extends Controller
         }
 
     }
+
+    public static function enleverCaracteresSpeciaux($text) {
+        $utf8 = array(
+        '/[áàâãªä]/u' => 'a',
+        '/[ÁÀÂÃÄ]/u' => 'A',
+        '/[ÍÌÎÏ]/u' => 'I',
+        '/[íìîï]/u' => 'i',
+        '/[éèêë]/u' => 'e',
+        '/[ÉÈÊË]/u' => 'E',
+        '/[óòôõºö]/u' => 'o',
+        '/[ÓÒÔÕÖ]/u' => 'O',
+        '/[úùûü]/u' => 'u',
+        '/[ÚÙÛÜ]/u' => 'U',
+        '/ç/' => 'c',
+        '/Ç/' => 'C',
+        '/ñ/' => 'n',
+        '/Ñ/' => 'N',
+        '//' => '-', // conversion d'un tiret UTF-8 en un tiret simple
+        // '/[]/u' => ' ', // guillemet simple
+        '/[«»]/u' => ' ', // guillemet double
+        '/ /' => ' ', // espace insécable (équiv. à 0x160)
+        );
+        return preg_replace(array_keys($utf8), array_values($utf8), $text);
+        }
 }
